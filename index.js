@@ -16,6 +16,7 @@ const fetcher = () => {
     
     xhttp.open("POST","https://api.lufthansa.com/v1/flight-schedules",true)
     xhttp.setRequestHeader("Access-Control-Allow-Origin","*")
+    xhttp.setRequestHeader("Access-Control-Request-Method","POST")
     for (let key in credentials) {
         console.log(key,credentials[key])
         xhttp.setRequestHeader(key,credentials[key])        
