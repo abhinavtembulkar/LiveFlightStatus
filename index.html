@@ -1,13 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome</title>
-</head>
-<body>
-    <div id="data"></div>
-</body>
-    <script src="index.js"></script>
+<!doctype html>
+<html lang="en" class="h-100">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+        <meta name="generator" content="Hugo 0.88.1">
+        <title>Map plotter</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="https://getbootstrap.com/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <meta name="theme-color" content="#7952b3">
+
+        <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+        <script src="https://cdn.amcharts.com/lib/4/maps.js"></script>
+        <script src="https://cdn.amcharts.com/lib/4/geodata/worldLow.js"></script>
+        <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+        <link rel="stylesheet" href="./static/css/charts.css">
+
+        <!-- Custom styles for this template -->
+        <link href="https://getbootstrap.com/docs/5.1/examples/cover/cover.css" rel="stylesheet">
+    </head>
+    
+    <body class="d-flex h-100 text-center text-white bg-dark">    
+        <div class="cover-container d-flex mx-auto flex-column">
+            <header class="mb-auto">
+                <div>
+                    <h3 class="float-md-start mb-0">Flight Map</h3>
+                    <nav class="nav nav-masthead justify-content-center float-md-end">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link" href="/chec">Check Downloads</a>
+                    </nav>
+                </div>
+            </header>
+
+            <main class="px-3">
+                <div id="chartdiv">
+
+                </div>
+                <div id="data"></div>
+                <div id="location1"></div>
+                <div id="location2"></div>
+            </main>
+
+            <div class="container py-4">
+                <div class="row align-items-md-stretch">
+                    <div class="col-md-6">
+                    <h6>Flight Data</h6>
+                    <form action="/flightdata/lufthansa" method="POST">
+                        <h4>Please type your query</h4><br>
+                        <input type="text" name="data_request" placeholder="references/airports/DEL"/><br>
+                        <input type="submit" class='btn btn-info' name="GO"><br>
+                        Goto Lufthansa open API
+                    </form>
+                    </div>
+                    <div class="col-md-6">
+                        <form action="/flightdata/aviationstack" method="post">
+                        <h4>OR</h4>
+                        <p>Goto Aviation Stack API</p>
+                        <input type="submit" class="btn btn-info" name="GO">
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="mt-auto text-white-50">
+                <h6>Covid Data</h6>
+                <div class="row align-items-md-stretch">
+                    <div class="col-md-6">
+                        <p class="p-b-12">Download covid data here</p>
+                        <a href="/coviddata" class="btn btn-danger">Download</a>
+                    </div>		
+                    <div class="col-md-6">
+                        <a href="/chec" class='btn btn-large btn-success'>Check Downloaded files here</a>
+                    </div>
+                </div>
+            </footer>
+        </div>            
+  </body>
+  <script src="./static/js/code.js"></script>
+  <script src="./static/js/index.js"></script>
 </html>
