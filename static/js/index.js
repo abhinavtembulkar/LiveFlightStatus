@@ -8,7 +8,7 @@ var destname = {}
 var output = {}
 
 const credentials = {
-    "Authorization" : "Bearer 3tp7a5869mfm3y9y58kh3stx",
+    "Authorization" : "Bearer 57wpjw9rmaxzu5vt42uf6be7",
     "Accept" : "application/json",
     "Content-type" : "application/json"
 }
@@ -16,9 +16,19 @@ const credentials = {
 
 const locationfetcher = (location,element,imagerender,flag=false) => {
     const xhttp = new XMLHttpRequest()
-    // let output = {}
+    
     xhttp.onload = () =>{
-        let text = JSON.parse(xhttp.responseText)
+        let text = []
+        try{
+            text = JSON.parse(xhttp.responseText)
+            console.log('DATA FETCHED')
+        }
+        catch(errs)
+        {
+            console.log(xhttp.responseText)
+            console.log('DATA NOT FETCHED')
+        }
+
         let originx = text['AirportResource']['Airports']['Airport']['Position']['Coordinate']['Latitude']
         let originy = text['AirportResource']['Airports']['Airport']['Position']['Coordinate']['Longitude'] 
         let locationname = text['AirportResource']['Airports']['Airport']['Names']['Name'][0]['$']
@@ -41,16 +51,22 @@ const locationfetcher = (location,element,imagerender,flag=false) => {
         // console.log(key,credentials[key])
         xhttp.setRequestHeader(key,credentials[key])        
     }
-    xhttp.send()
 
-    // return output
+    xhttp.send()
 }
 
 const datafetcher = () => {
     const xhttp = new XMLHttpRequest()
     xhttp.onload = async () =>{
-        data = JSON.parse(xhttp.responseText)
-        console.log('DATA FETCHED')
+        try{
+            data = JSON.parse(xhttp.responseText)
+            console.log('DATA FETCHED')
+        }
+        catch(errs)
+        {
+            console.log(xhttp.responseText)
+            console.log('DATA NOT FETCHED')
+        }
     }
     
     xhttp.open("GET",'https://api.lufthansa.com/v1/flight-schedules/flightschedules/passenger?airlines=LH&startDate=10OCT21&endDate=16OCT21&daysOfOperation=1&timeMode=UTC',true)
