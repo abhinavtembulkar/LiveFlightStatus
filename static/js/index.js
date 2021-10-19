@@ -15,6 +15,16 @@ const credentials = {
     "Content-type" : "application/json"
 }
 
+const setDate = (offset=0) =>{
+    const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+    const dateObj = new Date();
+    const month = monthNames[dateObj.getMonth()];
+    const day = String(dateObj.getDate()-offset).padStart(2, '0');
+    const year = dateObj.getFullYear().toString().substring(2,4);
+    const output = day + month + year;
+    console.log(output)
+    return output
+}
 
 const locationfetcher = (location,element,imagerender,flag) => {
     const xhttp = new XMLHttpRequest()
@@ -75,7 +85,10 @@ const datafetcher = () => {
         }
     }
     
-    xhttp.open("GET",'https://api.lufthansa.com/v1/flight-schedules/flightschedules/passenger?airlines=LH&startDate=10OCT21&endDate=16OCT21&daysOfOperation=1&timeMode=UTC',true)
+    datestart = setDate(7)
+    dateend = setDate()
+
+    xhttp.open("GET",`https://api.lufthansa.com/v1/flight-schedules/flightschedules/passenger?airlines=LH&startDate=${datestart}&endDate=${dateend}&daysOfOperation=1234567&timeMode=UTC`,true)
     
     for (let key in credentials) {
         // console.log(key,credentials[key])
