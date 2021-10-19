@@ -54,7 +54,7 @@ plane.path = planeSVG;
 plane.fill = am4core.color("#cc0000");
 
 var title = labelsContainer.createChild(am4core.Label);
-title.text = "Flights from London";
+title.text = "Flights starts from Reykjavik";
 title.fill = am4core.color("#cc0000");
 title.fontSize = 20;
 title.valign = "middle";
@@ -160,13 +160,13 @@ lineSeries.mapLines.template.line.strokeOpacity = 0.5;
 
 chart.events.on("ready", function() {
     console.log(1)
-    showLines(originImageSeries.dataItems.getIndex(0));
+    // showLines(originImageSeries.dataItems.getIndex(0));
 })
 
-chart.events.on("datavalidated",(event)=>{
-    console.log('DONE',event)
-    showLines(originImageSeries.dataItems.getIndex(0));
-})
+// chart.events.on("datavalidated",(event)=>{
+//     console.log('DONE',event)
+//     showLines(originImageSeries.dataItems.getIndex(0));
+// })
 
 
 var currentOrigin;

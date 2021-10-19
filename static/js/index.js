@@ -1,6 +1,8 @@
 const eles = document.getElementById('data')
 const eled1 = document.getElementById('location1')
 const eled2 = document.getElementById('location2')
+const outs = document.getElementById('output')
+
 var counter = 0
 var data = []
 var sorcname = {}
@@ -14,7 +16,7 @@ const credentials = {
 }
 
 
-const locationfetcher = (location,element,imagerender,flag=false) => {
+const locationfetcher = (location,element,imagerender,flag) => {
     const xhttp = new XMLHttpRequest()
     
     xhttp.onload = () =>{
@@ -43,6 +45,10 @@ const locationfetcher = (location,element,imagerender,flag=false) => {
         }
 
         imagerender.data = [datalist]
+        if(flag==true){
+            // showLines(originImageSeries.dataItems.getIndex(0));
+            title.text = "Flight starts from " + datalist.title;
+        }
     }
     
     xhttp.open("GET",`https://api.lufthansa.com/v1/references/airports/${location}`,true)
@@ -84,14 +90,39 @@ const changer = () => {
     eles.innerText = "Source: " + origin+" Destination: "+destination
     console.log(origin,destination)
     
-    locationfetcher(destination,eled2,destinationImageSeries)
-    locationfetcher(origin,eled1,originImageSeries)
+    locationfetcher(destination,eled2,destinationImageSeries,false)
+    locationfetcher(origin,eled1,originImageSeries,true)
     // counter++
+
+    arrive = data[counter].legs[0].aircraftArrivalTimeUTC.toString()
+    arrive = `${arrive.substring(0,arrive.length-2)} : ${arrive.substring(arrive.length-2,arrive.length)} UTC`
+    departure = data[counter].legs[0].aircraftDepartureTimeUTC.toString()
+    departure = `${departure.substring(0,departure.length-2)} : ${departure.substring(departure.length-2,departure.length)} UTC`
+
+    details = {
+        "airline" : data[counter].airline,
+        "startDate" : data[counter].periodOfOperationUTC.startDate,
+        "endDate" : data[counter].periodOfOperationUTC.endDate,
+        "ArrivalTime" : arrive,
+        "DepartureTime" : departure,
+        "AircraftType" : data[counter].legs[0].aircraftType
+    }
+
+    outs.innerHTML = ""    
+    for(keys in details)
+    {
+        ptag = document.createElement("p")
+        ptag.className="p-b-12"
+        ptag.innerText = `${keys} : ${details[keys]}`
+        outs.appendChild(ptag)
+    }
+
     counter = Math.floor(Math.random() * data.length)
     
-    showLines(originImageSeries.dataItems.getIndex(0));
+    // showLines(originImageSeries.dataItems.getIndex(0));
     chart.validateData()
+
 }
 
-setInterval(changer,8000)
+setInterval(changer,20000)
 datafetcher()
