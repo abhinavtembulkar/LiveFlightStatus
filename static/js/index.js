@@ -10,7 +10,7 @@ var destname = {}
 var output = {}
 
 const credentials = {
-    "Authorization" : "Bearer 57wpjw9rmaxzu5vt42uf6be7",
+    "Authorization" : "Bearer g7ddhwrzkqnas4raz4xhfg7n",
     "Accept" : "application/json",
     "Content-type" : "application/json"
 }
